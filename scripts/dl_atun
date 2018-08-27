@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Author:
+#   mmtrt [Taqi Raza]
+#
+# Description:
+#   download and prepare anituner for snap
+#
+# Date: Aug 27 2018
+#
+
+dlatun () {
+    wget http://download.gdgsoft.com/anitun2p.zip &> /dev/null
+}
+
+mkatun () {
+    mkdir -p usr/share && mkdir wine-platform
+    7z x anitun2p.zip -o"usr/share/anituner" &> /dev/null
+    rm *.zip && cp usr/share/anituner/AniTuner.exe usr/share/anituner/anituner.exe && rm usr/share/anituner/AniTuner.exe
+    find "usr" -type d -execdir chmod 755 {} +
+    mkdir -p usr/share/pixmaps && mkdir -p usr/share/applications && mkdir bin
+    cp ../../../snap/gui/anituner.desktop usr/share/applications && cp ../../../snap/gui/anituner.png usr/share/pixmaps
+}
+
+dlatun
+mkatun
+mv anituner bin && cp -R -p {bin,usr,wine-platform} $SNAPCRAFT_PART_INSTALL

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=AniTuner
+GenericName=Cursor Editor
+Comment=AniTuner is a application to help you create and edit ani mouse cursors.
+Encoding=UTF-8
+Version=2.0
+Type=Application
+Terminal=false
+Icon=${SNAP}/usr/share/pixmaps/anituner.png
+TryExec=anituner
+Exec=anituner %F
+StartupWMClass=anituner.exe
+Categories=Graphics
+MimeType=application/x-navi-animation

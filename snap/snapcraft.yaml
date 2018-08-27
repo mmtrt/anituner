@@ -1,0 +1,49 @@
+name: anituner
+version: 2.0
+summary: anituner lets you create, edit and convert Windows animated cursors ani files.
+description: |
+ Features
+  * add, edit, move, copy, paste and remove frames, change their timing; modify them in your own favorite external image editor and then save changes back to the animated cursor in some clicks.
+  * Reverse order of frames in one click.
+  * Perform operations and transformations on frames: horizontal and vertical flips, left and right rotations, custom rotations, image merging.
+  * add mouse pointers to existing images in some clicks thanks to the image merging feature.
+  * AniTuner handles all color reductions and resize operations itself, while taking care of transparency or alpha channels.
+  * AniTuner can correctly draw 32-bit animated cursors even if your Windows version doesn't support it.
+  * AniTuner shows live animated cursors while editing: any change is immediately visible.
+  * Test animated cursors by replacing the default mouse pointer during a short delay with your edited cursor.
+  * Edit the title and author of the animated cursor (art information).
+  * Modify the hotspot of the animated cursor.
+  * Drag and drop support for animated cursors and frames.
+  * AniTuner always optimizes animated cursors when saving them (identical frames will be saved only once).
+
+confinement: strict
+grade: stable
+architectures:
+  - build-on: amd64
+    run-on: [amd64, i386]
+
+plugs:
+  wine-platform-plug:
+    content: wine-base-stable
+    interface: content
+    target: $SNAP/wine-platform
+    default-provider: wine-platform-i386
+
+apps:
+  anituner:
+    command: anituner
+    plugs: [ wayland, x11, opengl, home, desktop, desktop-legacy, network, pulseaudio, hardware-observe, process-control, cups-control, removable-media, wine-platform-plug ]
+
+parts:
+  anituner:
+    plugin: nil
+    source: ./scripts
+    override-build: |
+      snapcraftctl build
+      set -ex
+      ./dl_atun
+    stage:
+      - bin
+      - usr
+      - wine-platform
+    build-packages: [wget, icoutils, p7zip-full]
