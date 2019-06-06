@@ -14,7 +14,7 @@ dlatun () {
 }
 
 mkatun () {
-    mkdir ./{wine-platform,bin} && mkdir -p usr/share/{pixmaps,applications}
+    mkdir -p ./{wine-runtime,wine-platform,bin} && mkdir -p usr/share/{pixmaps,applications}
     unzip anitun2p.zip -d "usr/share/anituner" &> /dev/null
     rm *.zip && cp usr/share/anituner/AniTuner.exe usr/share/anituner/anituner.exe && rm usr/share/anituner/AniTuner.exe
     find "usr" -type d -execdir chmod 755 {} +
@@ -22,4 +22,4 @@ mkatun () {
 
 dlatun
 mkatun
-mv anituner bin && mv anituner.desktop usr/share/applications && mv anituner.png usr/share/pixmaps && cp -R -p {bin,usr,wine-platform} $SNAPCRAFT_PART_INSTALL
+mv anituner bin && mv anituner.desktop usr/share/applications && mv anituner.png usr/share/pixmaps && cp -R -p {bin,usr,wine-runtime,wine-platform} $SNAPCRAFT_PART_INSTALL
